@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="music-head" :style="{color:color}">
-			音乐小屋
+			音乐小屋11
 		</view>
 		<view v-if="icon" class="music-head-icon" :class="{'music-head-iconblack' : iconBlack}">
 			<text class="iconfont iconzuojiantou-copy" @tap="handleToBack"></text>
