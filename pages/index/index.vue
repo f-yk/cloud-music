@@ -9,7 +9,7 @@
 				</view>
 				<!-- 骨架屏 -->
 				<view v-if="isLoading">
-					<u-skeleton rows="3" :animate="true" v-for="(item,key) in 4" :key="key" :loading="true" avatar
+					<u-skeleton rows="3" :animate="true" v-for="(item,key) in 4" :key="key" :loading="true"
 						title></u-skeleton>
 					<!-- <m-for-skeleton
 						:avatarSize="200"
