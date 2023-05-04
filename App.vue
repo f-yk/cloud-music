@@ -1,5 +1,6 @@
 <script>
 	import '@/common/iconfont.css'
+	// import "uview-ui/index.scss";
 	export default {
 		onLaunch: function() {},
 		onShow: function() {},
@@ -9,7 +10,8 @@
 	}
 </script>
 
-<style>
+<style lang="scss">
+	@import "uview-ui/index.scss";
 	/*每个页面公共css */
 	.container {
 		width: 100%;

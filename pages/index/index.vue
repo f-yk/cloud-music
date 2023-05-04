@@ -9,7 +9,9 @@
 				</view>
 				<!-- 骨架屏 -->
 				<view v-if="isLoading">
-					<m-for-skeleton
+					<u-skeleton rows="3" :animate="true" v-for="(item,key) in 4" :key="key" :loading="true" avatar
+						title></u-skeleton>
+					<!-- <m-for-skeleton
 						:avatarSize="200"
 						:row="3"
 						:loading="isLoading"
@@ -17,10 +19,11 @@
 						v-for="(item,key) in 4"
 						:titleStyle="{}"
 						:key="key">
-					</m-for-skeleton>
+					</m-for-skeleton> -->
 				</view>
 				<view class="index-list" v-else>
-					<view class="index-list-item" v-for="(item,index) in topList" :key="item.id" @tap="handToList" :data-id="item.id">
+					<view class="index-list-item" v-for="(item,index) in topList" :key="item.id" @tap="handToList"
+						:data-id="item.id">
 						<view class="index-list-img">
 							<image :src="item.coverImgUrl" mode=""></image>
 							<text>{{item.updateFrequency}}</text>
@@ -40,25 +43,25 @@
 <script>
 	import musichead from '@/components/musichead/musichead.vue'
 	// 导入组件
-	import mForSkeleton from "@/components/m-for-skeleton/m-for-skeleton"
+	// import mForSkeleton from "@/components/m-for-skeleton/m-for-skeleton"
 	import {
 		topList
 	} from '@/common/api.js'
 	export default {
 		data() {
 			return {
-				isLoading:true,
+				isLoading: true,
 				topList: []
 			}
 		},
-		components:{mForSkeleton},
+		// components:{mForSkeleton},
 		onLoad() {
 			topList().then(res => {
 				if (res.length) {
-					setTimeout(()=>{
+					setTimeout(() => {
 						this.topList = res;
 						this.isLoading = false;
-					},1000)
+					}, 1000)
 				}
 			})
 		},
