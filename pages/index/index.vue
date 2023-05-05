@@ -73,7 +73,7 @@
 		},
 		methods: {
 			change1(e) {
-				console.log('change11',e)
+				console.log('change1',e)
 			},
 			
 			// 底部点击事件
