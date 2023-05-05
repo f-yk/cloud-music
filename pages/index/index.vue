@@ -9,85 +9,93 @@
 				</view>
 				<!-- 骨架屏 -->
 				<view v-if="isLoading">
-					<u-skeleton rows="3" :animate="true" v-for="(item,key) in 4" :key="key" :loading="true"
-						title></u-skeleton>
-					<!-- <m-for-skeleton
-						:avatarSize="200"
-						:row="3"
-						:loading="isLoading"
-						isarc="square"
-						v-for="(item,key) in 4"
-						:titleStyle="{}"
-						:key="key">
-					</m-for-skeleton> -->
+					<view class="f-skeleton-box">
+						<u-skeleton rows="3" avatar avatarSize="50" rowsWidth="80%" :animate="true" v-for="(item, key) in 4"
+							:key="key" :loading="true" title>
+						</u-skeleton>
+					</view>
 				</view>
 				<view class="index-list" v-else>
-					<view class="index-list-item" v-for="(item,index) in topList" :key="item.id" @tap="handToList"
+					<view class="index-list-item" v-for="(item, index) in topList" :key="index" @tap="handToList"
 						:data-id="item.id">
 						<view class="index-list-img">
 							<image :src="item.coverImgUrl" mode=""></image>
-							<text>{{item.updateFrequency}}</text>
+							<text>{{ item.updateFrequency }}</text>
 						</view>
 						<view class="index-list-text">
-							<view v-for="(musicItem,index) in item.tracks" :key="index">
-								{{index+1}}.{{musicItem.first}}.{{musicItem.second}}
+							<view v-for="(musicItem, index) in item.tracks" :key="index">
+								{{ index + 1 }}.{{ musicItem.first }}.{{ musicItem.second }}
 							</view>
 						</view>
 					</view>
 				</view>
 			</scroll-view>
 		</view>
-		<u-tabbar :value="value6" @change="name => value6 = name" :fixed="true" :placeholder="true"
+		<u-tabbar :value="value1" @change="change1" :fixed="true" :placeholder="true" activeColor="#fff"
 			:safeAreaInsetBottom="true">
-			<u-tabbar-item text="首页" icon="home"></u-tabbar-item>
-			<u-tabbar-item text="放映厅" icon="photo"></u-tabbar-item>
-			<u-tabbar-item text="直播" icon="play-right"></u-tabbar-item>
-			<u-tabbar-item text="我的" icon="account"></u-tabbar-item>
+			<u-tabbar-item text="首页" icon="home" @click="clickThing"></u-tabbar-item>
+			<u-tabbar-item text="放映厅" icon="photo" @click="clickThing"></u-tabbar-item>
+			<u-tabbar-item text="直播" icon="play-right" @click="clickThing"></u-tabbar-item>
+			<u-tabbar-item text="我的" icon="account" @click="clickThing"></u-tabbar-item>
 		</u-tabbar>
 	</view>
 </template>
 
 <script>
-	import musichead from '@/components/musichead/musichead.vue'
+	import musichead from "@/components/musichead/musichead.vue";
 	// 导入组件
 	// import mForSkeleton from "@/components/m-for-skeleton/m-for-skeleton"
 	import {
 		topList
-	} from '@/common/api.js'
+	} from "@/common/api.js";
 	export default {
 		data() {
 			return {
 				isLoading: true,
-				topList: []
-			}
+				topList: [],
+			};
 		},
 		// components:{mForSkeleton},
 		onLoad() {
-			topList().then(res => {
+			// 延时2秒钟
+			uni.$u.sleep(2000).then(() => {
+				this.loading = false
+			})
+
+			topList().then((res) => {
 				if (res.length) {
 					setTimeout(() => {
 						this.topList = res;
 						this.isLoading = false;
-					}, 1000)
+					}, 1000);
 				}
-			})
+			});
 		},
 		methods: {
+			change1(e) {
+				console.log('change1',e)
+			},
+			
+			// 底部点击事件
+			clickThing(e) {
+				console.log('click1', e);
+			},
+			
 			handToList(event) {
 				uni.navigateTo({
-					url: '../list/list?listId=' + event.currentTarget.dataset.id
-				})
+					url: "../list/list?listId=" + event.currentTarget.dataset.id,
+				});
 			},
 			handleToSearch() {
 				uni.navigateTo({
-					url: '/pages/search/search'
+					url: "/pages/search/search",
 				});
-			}
-		}
-	}
+			},
+		},
+	};
 </script>
 
-<style>
+<style scoped lang="scss">
 	.index {}
 
 	.index-search {
@@ -109,6 +117,10 @@
 	.index-search input {
 		font-size: 28rpx;
 		flex: 1;
+	}
+
+	.f-skeleton-box {
+		margin-left: 40rpx;
 	}
 
 	.index-list {
@@ -140,7 +152,6 @@
 		bottom: 16rpx;
 		color: white;
 		font-size: 20rpx;
-
 	}
 
 	.index-list-text {
