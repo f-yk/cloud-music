@@ -31,8 +31,7 @@
 				</view>
 			</scroll-view>
 		</view>
-		<u-tabbar :value="value1" @change="change1" :fixed="true" :placeholder="true" activeColor="#fff"
-			:safeAreaInsetBottom="true">
+		<u-tabbar :value="valueTaber" @change="change1" :fixed="true" :placeholder="true" :safeAreaInsetBottom="true">
 			<u-tabbar-item text="首页" icon="home" @click="clickThing"></u-tabbar-item>
 			<u-tabbar-item text="放映厅" icon="photo" @click="clickThing"></u-tabbar-item>
 			<u-tabbar-item text="直播" icon="play-right" @click="clickThing"></u-tabbar-item>
@@ -53,6 +52,7 @@
 			return {
 				isLoading: true,
 				topList: [],
+				valueTaber: 0
 			};
 		},
 		// components:{mForSkeleton},
@@ -73,14 +73,14 @@
 		},
 		methods: {
 			change1(e) {
-				console.log('change1',e)
+				console.log('change1', e)
 			},
-			
+
 			// 底部点击事件
 			clickThing(e) {
-				console.log('click1', e);
+				this.valueTaber = e
 			},
-			
+
 			handToList(event) {
 				uni.navigateTo({
 					url: "../list/list?listId=" + event.currentTarget.dataset.id,
